@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import {useWallStore} from "../stores/wallStores.ts";
 import {WallHeight, WallWidth} from "../constants";
+import Button from "./Button.tsx";
 
 export default function WallControls() {
-    const {setMode, clearPoints, points, addWall, clearWalls} = useWallStore();
+    const {mode, setMode, clearPoints, points, addWall, clearWalls} = useWallStore();
 
     const handleStart = () => {
         console.log('drawing');
@@ -29,7 +30,8 @@ export default function WallControls() {
             const length = Math.sqrt(dx * dx + dz * dz);
 
             const geometry = new THREE.BoxGeometry(WallWidth, WallHeight, length);
-            const material = new THREE.MeshBasicMaterial({color: "#aaa"});
+            // const material = new THREE.MeshBasicMaterial({color: "#aaa"});
+            const material = new THREE.MeshPhysicalMaterial({color: "#aaa"});
             const wall = new THREE.Mesh(geometry, material);
 
             // 中点
@@ -45,22 +47,12 @@ export default function WallControls() {
     };
 
     return (
-        <div
-            // style={{
-            //     position: "absolute",
-            //     top: 20,
-            //     left: 20,
-            //     display: "flex",
-            //     flexDirection: "column",
-            //     gap: 8,
-            // }}
-            // className="absolute top-2 left-2 flex flex-col gap-2"
-            className="flex flex-col gap-2"
-        >
-            <button onClick={handleStart}>开始绘制</button>
-            <button onClick={handleCancel}>取消绘制</button>
-            <button onClick={handleGenerate}>生成墙体</button>
-            <button onClick={clearWalls}>清空所有墙体</button>
+        <div className="flex flex-col gap-2">
+            <Button onClick={handleStart}>开始绘制</Button>
+            <Button onClick={handleCancel}>取消绘制</Button>
+            <Button onClick={handleGenerate}
+                    cusClassName={`${(mode === "idle" || points.length < 2) ? "cursor-not-allowed bg-gray-500" : ""}`}>生成墙体</Button>
+            <Button onClick={clearWalls}>清空所有墙体</Button>
         </div>
     );
 }

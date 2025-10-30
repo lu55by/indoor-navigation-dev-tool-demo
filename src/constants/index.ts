@@ -18,5 +18,5 @@ export interface WallStore {
     clearWalls: () => void;
 }
 
-export const WallWidth = 1
+export const WallWidth = .5
 export const WallHeight = 2

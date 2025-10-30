@@ -1,4 +1,4 @@
-import {OrbitControls} from "@react-three/drei";
+import {Environment, OrbitControls} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 import ControlledGrid from "./ControlledGrid.tsx";
 import WallDrawer from "./WallDrawer.tsx";
@@ -10,7 +10,7 @@ export default function CanvasScene() {
         <Canvas camera={{position: [10, 20, 10]}}>
             <OrbitControls/>
             <ControlledGrid/>
-            {/*<Box/>*/}
+            <Environment preset="sunset"/>
             <WallDrawer/>
             <DrawPreview/>
             <Walls/>
